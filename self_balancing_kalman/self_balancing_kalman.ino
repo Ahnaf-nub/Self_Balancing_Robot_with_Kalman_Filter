@@ -15,9 +15,9 @@ KalmanFilter kalmanY;
 #define IN4 23
 
 // PID constants
-float Kp = 10.0;
-float Ki = 0.5;
-float Kd = 1.0;
+float Kp = 5.3;
+float Ki = 0;
+float Kd = 0;
 
 // PID variables
 float setpoint = 0.0;
@@ -37,7 +37,8 @@ void setup() {
   mpu.initialize();
   if (!mpu.testConnection()) {
     Serial.println("MPU6050 connection failed");
-    while (1);
+    while (1)
+      ;
   }
 
   // Initialize motor driver pins
@@ -47,6 +48,13 @@ void setup() {
   pinMode(ENB, OUTPUT);
   pinMode(IN3, OUTPUT);
   pinMode(IN4, OUTPUT);
+
+  mpu.setXAccelOffset(2763);
+  mpu.setYAccelOffset(779);
+  mpu.setZAccelOffset(2606);
+  mpu.setXGyroOffset(194);
+  mpu.setYGyroOffset(9);
+  mpu.setZGyroOffset(9);
 
   timer = micros();
 }
@@ -69,7 +77,7 @@ void loop() {
   // Control motors based on PID output
   setMotorSpeed(output);
 
-  delay(10); // Small delay for stability
+  delay(10);  // Small delay for stability
 }
 
 float readAngle(float dt) {
@@ -89,7 +97,7 @@ float readAngle(float dt) {
   float angleX = kalmanX.getAngle(accelXangle, gyroXrate, dt);
   float angleY = kalmanY.getAngle(accelYangle, gyroYrate, dt);
 
-  return angleY; // Use the appropriate angle for balancing
+  return angleY;  // Use the appropriate angle for balancing
 }
 
 void setMotorSpeed(float speed) {
