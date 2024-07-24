@@ -15,7 +15,7 @@ KalmanFilter kalmanY;
 #define IN4 23
 
 // PID constants
-float Kp = 5.3;
+float Kp = 5 0.3;
 float Ki = 0;
 float Kd = 0;
 
@@ -49,12 +49,18 @@ void setup() {
   pinMode(IN3, OUTPUT);
   pinMode(IN4, OUTPUT);
 
-  mpu.setXAccelOffset(2763);
-  mpu.setYAccelOffset(779);
-  mpu.setZAccelOffset(2606);
-  mpu.setXGyroOffset(194);
-  mpu.setYGyroOffset(9);
-  mpu.setZGyroOffset(9);
+  mpu.setXAccelOffset(-2911);
+  mpu.setYAccelOffset(-1996);
+  mpu.setZAccelOffset(5649);
+  mpu.setXGyroOffset(145);
+  mpu.setYGyroOffset(-24);
+  mpu.setZGyroOffset(24);
+  /* mpu.setXAccelOffset(-2788);
+  mpu.setYAccelOffset(807);
+  mpu.setZAccelOffset(1210);
+  mpu.setXGyroOffset(66);
+  mpu.setYGyroOffset(-12);
+  mpu.setZGyroOffset(16);*/
 
   timer = micros();
 }
